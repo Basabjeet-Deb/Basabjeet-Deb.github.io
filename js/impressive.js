@@ -115,26 +115,23 @@ window.addEventListener('mousemove', (e) => {
     });
 });
 
-// Project card 3D tilt effect
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
-});
+// Project card 3D tilt effect - DISABLED to allow link clicks
+// document.querySelectorAll('.project-card').forEach(card => {
+//     card.addEventListener('mousemove', (e) => {
+//         if (e.target.closest('a')) return;
+//         const rect = card.getBoundingClientRect();
+//         const x = e.clientX - rect.left;
+//         const y = e.clientY - rect.top;
+//         const centerX = rect.width / 2;
+//         const centerY = rect.height / 2;
+//         const rotateX = (y - centerY) / 20;
+//         const rotateY = (centerX - x) / 20;
+//         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+//     });
+//     card.addEventListener('mouseleave', () => {
+//         card.style.transform = '';
+//     });
+// });
 
 // Hero title - keeping it simple and clean
 
