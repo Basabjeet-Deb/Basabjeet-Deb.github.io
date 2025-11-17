@@ -919,10 +919,7 @@ section {
 }
 
 .project-number {
-    font-size: 3rem;
-    font-weight: 800;
-    color: white;
-    opacity: 0.3;
+    display: none;
 }
 
 .project-content {
