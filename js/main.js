@@ -1,8 +1,10 @@
-// Initialize AOS
+// Initialize AOS with enhanced settings
 AOS.init({
     duration: 800,
     once: true,
-    offset: 100
+    offset: 100,
+    easing: 'ease-out-cubic',
+    delay: 50
 });
 
 // DOM Elements
@@ -13,6 +15,19 @@ const cursorDot = document.getElementById('cursorDot');
 const menuToggle = document.getElementById('menuToggle');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
+
+// Performance optimization - throttle scroll events
+function throttle(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
 // Preloader
 window.addEventListener('load', () => {
@@ -55,11 +70,30 @@ document.querySelectorAll('a, button').forEach(elem => {
     });
 });
 
-// Mobile Menu Toggle
+// Mobile Menu Toggle with body scroll lock
 if (menuToggle) {
     menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('mobile-active');
         menuToggle.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+    
+    // Close menu when clicking nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('mobile-active');
+            menuToggle.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            navMenu.classList.remove('mobile-active');
+            menuToggle.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
     });
 }
 
@@ -86,15 +120,21 @@ function updateActiveNav() {
 
 window.addEventListener('scroll', updateActiveNav);
 
-// Smooth Scrolling
+// Enhanced Smooth Scrolling with offset for fixed header
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const target = document.querySelector(targetId);
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            const headerHeight = header.offsetHeight;
+            const targetPosition = target.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
             });
         }
     });
@@ -136,14 +176,24 @@ document.querySelectorAll('[data-value]').forEach(stat => {
     observer.observe(stat);
 });
 
-// Add parallax effect to hero image
-window.addEventListener('scroll', () => {
+// Enhanced parallax effect with throttling
+const parallaxEffect = throttle(() => {
     const scrolled = window.pageYOffset;
     const heroImage = document.querySelector('.hero-image');
+    const blobs = document.querySelectorAll('.gradient-blob');
+    
     if (heroImage && scrolled < window.innerHeight) {
         heroImage.style.transform = `translateY(${scrolled * 0.3}px)`;
     }
-});
+    
+    // Parallax for gradient blobs
+    blobs.forEach((blob, index) => {
+        const speed = (index + 1) * 0.1;
+        blob.style.transform = `translate(${scrolled * speed}px, ${scrolled * speed}px)`;
+    });
+}, 10);
+
+window.addEventListener('scroll', parallaxEffect);
 
 // Add typing effect to hero title (optional)
 function typeWriter(element, text, speed = 100) {
@@ -171,3 +221,121 @@ window.addEventListener('load', () => {
         }, 1500);
     }
 });
+
+
+// Back to top button
+const createBackToTopButton = () => {
+    const button = document.createElement('button');
+    button.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    `;
+    button.className = 'back-to-top';
+    button.setAttribute('aria-label', 'Back to top');
+    document.body.appendChild(button);
+    
+    button.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    window.addEventListener('scroll', throttle(() => {
+        if (window.pageYOffset > 500) {
+            button.classList.add('visible');
+        } else {
+            button.classList.remove('visible');
+        }
+    }, 100));
+};
+
+createBackToTopButton();
+
+// Enhanced project card interactions
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+    });
+});
+
+// Lazy load images for better performance
+const lazyLoadImages = () => {
+    const images = document.querySelectorAll('.project-image[style*="background-image"]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px'
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+};
+
+lazyLoadImages();
+
+// Add keyboard navigation
+document.addEventListener('keydown', (e) => {
+    // ESC to close mobile menu
+    if (e.key === 'Escape' && navMenu.classList.contains('mobile-active')) {
+        navMenu.classList.remove('mobile-active');
+        menuToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+});
+
+// Enhanced timeline animations on scroll
+const timelineItems = document.querySelectorAll('.timeline-item');
+const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+        }
+    });
+}, {
+    threshold: 0.3
+});
+
+timelineItems.forEach(item => timelineObserver.observe(item));
+
+// Add ripple effect to buttons
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        this.appendChild(ripple);
+        
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+// Detect if user prefers reduced motion
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (prefersReducedMotion) {
+    // Disable animations for users who prefer reduced motion
+    AOS.init({ disable: true });
+    document.body.classList.add('reduced-motion');
+}
+
+// Console easter egg
+console.log('%c👋 Hey there!', 'font-size: 20px; font-weight: bold; color: #5b8bdf;');
+console.log('%cLooking at the code? I like your style! 🚀', 'font-size: 14px; color: #7c3aed;');
+console.log('%cFeel free to reach out: basabjeet.557@gmail.com', 'font-size: 12px; color: #10b981;');

@@ -1936,3 +1936,331 @@ section {
     }
 }
 }
+
+
+/* ============================================
+   ENHANCED FEATURES & INTERACTIONS
+   ============================================ */
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(91, 139, 223, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(91, 139, 223, 0.6);
+}
+
+.back-to-top svg {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Ripple Effect for Buttons */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Enhanced Timeline Animation */
+.timeline-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.timeline-item.animate-in .timeline-content {
+    animation: slideInRight 0.6s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Lazy Load Image Effect */
+.project-image {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.project-image.loaded {
+    opacity: 1;
+}
+
+/* Enhanced Hover Effects for Project Cards */
+.project-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: var(--accent-gradient);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-padding-top: 80px;
+}
+
+/* Enhanced Focus States for Accessibility */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Loading State for Images */
+.project-image {
+    background-color: var(--bg-card);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.project-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+.project-image.loaded::before {
+    display: none;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Enhanced Mobile Menu */
+@media (max-width: 768px) {
+    .nav-menu.mobile-active {
+        animation: slideInRight 0.3s ease-out;
+    }
+    
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+}
+
+/* Improved Card Hover Effects */
+.info-card,
+.skill-card,
+.contact-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::after,
+.skill-card::after,
+.contact-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(91, 139, 223, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.info-card:hover::after,
+.skill-card:hover::after,
+.contact-card:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Enhanced Gradient Animations */
+.gradient-blob {
+    will-change: transform;
+}
+
+/* Performance Optimization */
+.hero-image,
+.project-image,
+.gradient-blob {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Reduced Motion Support */
+.reduced-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+/* Enhanced Selection */
+::selection {
+    background: var(--accent-primary);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--accent-primary);
+    color: white;
+}
+
+/* Improved Link Underline Animation */
+.nav-link::after {
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* Enhanced Button Interactions */
+.btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Smooth Opacity Transitions */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Enhanced Project Number Animation */
+.project-number {
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-number {
+    transform: scale(1.2);
+    opacity: 0.5;
+}
+
+/* Improved Timeline Dot Animation */
+.timeline-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 8px rgba(91, 139, 223, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 0 4px var(--bg-secondary), 0 0 0 12px rgba(91, 139, 223, 0.4);
+    }
+}
+
+/* Enhanced Scroll Indicator */
+.scroll-indicator {
+    animation: fadeInUp 1s ease-out 2s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
