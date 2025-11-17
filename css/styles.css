@@ -2264,3 +2264,531 @@ button:focus-visible {
         transform: translateX(-50%) translateY(0);
     }
 }
+
+
+/* ============================================
+   WOW FACTOR ENHANCEMENTS FOR INTERVIEWERS
+   ============================================ */
+
+/* Floating Badges around Profile */
+.floating-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(31, 35, 53, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(91, 139, 223, 0.3);
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    animation: float-badge 3s ease-in-out infinite;
+    z-index: 10;
+}
+
+.badge-1 {
+    top: 10%;
+    right: -10%;
+    animation-delay: 0s;
+}
+
+.badge-2 {
+    bottom: 15%;
+    left: -15%;
+    animation-delay: 1.5s;
+}
+
+.badge-emoji {
+    font-size: 1.5rem;
+    animation: rotate-emoji 4s ease-in-out infinite;
+}
+
+.badge-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+@keyframes float-badge {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.05);
+    }
+}
+
+@keyframes rotate-emoji {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+/* Orbit Icons */
+.orbit-icon {
+    position: absolute;
+    font-size: 2rem;
+    animation: orbit-rotate 20s linear infinite;
+}
+
+.orbit-icon-1 {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.orbit-icon-2 {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.orbit-icon-3 {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes orbit-rotate {
+    from {
+        transform: rotate(0deg) translateX(80px) rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg) translateX(80px) rotate(-360deg);
+    }
+}
+
+/* Enhanced Skill Cards with Progress Rings */
+.skill-card {
+    position: relative;
+    overflow: visible;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--accent-gradient);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.skill-card:hover::before {
+    opacity: 1;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(91, 139, 223, 0.4);
+}
+
+.skill-card:hover .skill-icon {
+    transform: scale(1.2) rotateY(360deg);
+}
+
+.skill-icon {
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Hero Name - Clean and Simple */
+.hero-name {
+    position: relative;
+}
+
+/* Animated Gradient Border for Featured Project */
+.project-card.featured {
+    position: relative;
+    background: var(--bg-card);
+}
+
+.project-card.featured::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(45deg, 
+        #5b8bdf, #7c3aed, #10b981, #5b8bdf);
+    background-size: 300% 300%;
+    border-radius: 20px;
+    z-index: -1;
+    animation: gradient-rotate 4s ease infinite;
+}
+
+@keyframes gradient-rotate {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Particle Effect Background */
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(91, 139, 223, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px, 80px 80px, 100px 100px;
+    animation: particle-float 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes particle-float {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100px);
+    }
+}
+
+/* Hero Title - Clean */
+
+/* 3D Tilt Effect on Project Cards */
+.project-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-10px);
+}
+
+/* Spotlight Effect on Hover */
+.project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(91, 139, 223, 0.15) 0%,
+        transparent 50%
+    );
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.project-card:hover::after {
+    opacity: 1;
+}
+
+/* Stat Counter Glow Effect */
+.stat-value {
+    position: relative;
+    display: inline-block;
+}
+
+.stat-value::after {
+    content: attr(data-value);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: blur(10px);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* Timeline Line Gradient Animation */
+.timeline-line {
+    background: linear-gradient(
+        180deg,
+        var(--accent-primary) 0%,
+        var(--accent-secondary) 50%,
+        var(--accent-tertiary) 100%
+    );
+    background-size: 100% 200%;
+    animation: timeline-flow 3s ease-in-out infinite;
+}
+
+@keyframes timeline-flow {
+    0%, 100% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 0% 100%;
+    }
+}
+
+/* Magnetic Button Effect */
+.btn-primary {
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    animation: magnetic-pulse 0.5s ease-in-out;
+}
+
+@keyframes magnetic-pulse {
+    0%, 100% {
+        transform: scale(1) translateY(-2px);
+    }
+    50% {
+        transform: scale(1.05) translateY(-4px);
+    }
+}
+
+/* Section Reveal Animation */
+section {
+    opacity: 0;
+    animation: section-reveal 0.8s ease-out forwards;
+}
+
+@keyframes section-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Skill Level Badge Pulse */
+.skill-level {
+    animation: level-pulse 2s ease-in-out infinite;
+}
+
+@keyframes level-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+}
+
+/* Contact Card Shine Effect */
+.contact-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .floating-badge {
+        display: none;
+    }
+    
+    .orbit-icon {
+        font-size: 1.5rem;
+    }
+    
+    .hero-name {
+        animation: none;
+        text-shadow: none;
+    }
+}
+
+/* Print-friendly (hide animations) */
+@media print {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* ============================================
+   ACHIEVEMENTS HIGHLIGHT SECTION
+   ============================================ */
+
+.achievements {
+    padding: 80px 0;
+    background: linear-gradient(135deg, 
+        rgba(91, 139, 223, 0.05) 0%, 
+        rgba(124, 58, 237, 0.05) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.achievements::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent-primary), 
+        transparent);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.achievement-card {
+    position: relative;
+    background: var(--bg-card);
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 20px;
+}
+
+.achievement-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    border-color: var(--accent-primary);
+    box-shadow: 0 20px 60px rgba(91, 139, 223, 0.4);
+}
+
+.achievement-card:hover::before {
+    opacity: 0.1;
+}
+
+.achievement-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    animation: bounce-icon 2s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes bounce-icon {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.achievement-card h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.achievement-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+.achievement-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, 
+        rgba(91, 139, 223, 0.3) 0%, 
+        transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.achievement-card:hover .achievement-glow {
+    opacity: 1;
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.8;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .achievement-card {
+        padding: 2rem 1rem;
+    }
+    
+    .achievement-icon {
+        font-size: 2.5rem;
+    }
+    
+    .achievement-card h3 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+}
