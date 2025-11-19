@@ -339,3 +339,22 @@ if (prefersReducedMotion) {
 console.log('%c👋 Hey there!', 'font-size: 20px; font-weight: bold; color: #5b8bdf;');
 console.log('%cLooking at the code? I like your style! 🚀', 'font-size: 14px; color: #7c3aed;');
 console.log('%cFeel free to reach out: basabjeet.557@gmail.com', 'font-size: 12px; color: #10b981;');
+
+
+// ============================================
+// Certificates Infinite Scroll
+// ============================================
+function initCertificatesScroll() {
+    const track = document.querySelector('.certificates-track');
+    if (!track) return;
+
+    // Clone certificates for infinite scroll effect
+    const cards = Array.from(track.children);
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', initCertificatesScroll);

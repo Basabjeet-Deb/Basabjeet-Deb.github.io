@@ -2812,13 +2812,33 @@ section {
 .certificates {
     padding: 100px 0;
     background: var(--bg-secondary);
+    overflow: hidden;
 }
 
-.certificates-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+.certificates-scroll-container {
     margin-top: 3rem;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.certificates-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.certificates-track {
+    display: flex;
+    gap: 2rem;
+    animation: scroll-certificates 30s linear infinite;
+    width: max-content;
+}
+
+@keyframes scroll-certificates {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .certificate-card {
@@ -2827,6 +2847,8 @@ section {
     overflow: hidden;
     border: 1px solid var(--border-color);
     transition: all 0.4s ease;
+    min-width: 350px;
+    flex-shrink: 0;
 }
 
 .certificate-card:hover {
@@ -2907,9 +2929,8 @@ section {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .certificates-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .certificate-card {
+        min-width: 280px;
     }
     
     .certificate-image {
