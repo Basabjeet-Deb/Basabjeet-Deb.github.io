@@ -71,6 +71,40 @@ body {
     background: var(--accent-secondary);
 }
 
+/* Company Logo Styling */
+.company-logo {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+}
+
+.company-logo img {
+    border: 2px solid var(--border-color);
+    transition: var(--transition-base);
+}
+
+.company-logo img:hover {
+    border-color: var(--accent-primary);
+    transform: scale(1.05);
+}
+
+/* Company Logo Styling */
+.company-logo {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+}
+
+.company-logo img {
+    border: 2px solid var(--border-color);
+    transition: var(--transition-base);
+}
+
+.company-logo img:hover {
+    border-color: var(--accent-primary);
+    transform: scale(1.05);
+}
+
 /* Progress Bar */
 .progress-bar {
     position: fixed;
@@ -668,7 +702,7 @@ body {
 
 /* Sections */
 section {
-    padding: 100px 0;
+    padding: 20px 0;
     position: relative;
 }
 
