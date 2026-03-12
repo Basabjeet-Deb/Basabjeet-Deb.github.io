@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies - Basabjeet Deb</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        .hobbies {
+            padding: 74px 0 40px;
+            background: var(--bg-primary);
+            min-height: 100vh;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 60px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-base);
+        }
+
+        .back-home:hover {
+            gap: 12px;
+            color: var(--accent-secondary);
+        }
+
+        .back-home svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .hobbies-intro {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+
+        .hobbies-intro p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .poems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .poem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 50px 40px;
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Parchment background behind text */
+        .poem-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 85%;
+            background-image: url('https://images.unsplash.com/photo-1509266272358-7701da638078?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .poem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--text-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .poem-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .poem-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .poem-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .poem-title {
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 35px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .poem-content {
+            color: var(--text-secondary);
+            line-height: 2.2;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .poem-content p {
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .poem-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .hobbies-note {
+            max-width: 800px;
+            margin: 60px auto 0;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .hobbies-note p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-base);
+        }
+
+        .back-home:hover {
+            gap: 12px;
+            color: var(--accent-secondary);
+        }
+
+        .back-home svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .poems-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hobbies {
+                padding: 120px 0 60px;
+            }
+
+            .poem-card {
+                padding: 35px 25px;
+            }
+
+            .poem-title {
+                font-size: 1.8rem;
+            }
+
+            .poem-content {
+                font-size: 1rem;
+                line-height: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div id="preloader" class="preloader">
+        <div class="loader-wrapper">
+            <div class="loader-circle"></div>
+            <div class="loader-text">Loading</div>
+        </div>
+    </div>
+
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <header id="header" class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">BD</span>
+                <span class="logo-dot"></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="index.html#certificates" class="nav-link">Certificates</a></li>
+                <li><a href="hobbies.html" class="nav-link">Hobbies</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="assets/doc/resume/BasabjeetDeb_Resume.pdf" download class="nav-resume">
+                    <span>Resume</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                </a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="social-sidebar">
+        <a href="https://github.com/Basabjeet-Deb" target="_blank" class="social-icon" aria-label="GitHub Profile">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+        </a>
+        <a href="https://linkedin.com/in/basabjeet-deb" target="_blank" class="social-icon" aria-label="LinkedIn Profile">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+        </a>
+        <a href="mailto:basabjeet.557@gmail.com" class="social-icon" aria-label="Email Basabjeet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-10 5L2 7"/>
+            </svg>
+        </a>
+        <div class="social-line"></div>
+    </div>
+
+    <main>
+
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hobbies">
+            <div class="container">
+                <a href="index.html" class="back-home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Portfolio
+                </a>
+
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-subtitle">Creative Expression</span>
+                    <h2 class="section-title">My <span class="text-gradient">Hobbies</span></h2>
+                </div>
+
+                <div class="hobbies-intro" data-aos="fade-up" data-aos-delay="100">
+                    <p>Beyond code and data, I find solace in poetry. Writing allows me to explore emotions, 
+                    perspectives, and the human experience through carefully crafted words.</p>
+                </div>
+
+                <div class="poems-grid">
+                    <!-- Poem 1 -->
+                    <div class="poem-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="poem-header">
+                            <span class="poem-date">Original Poem</span>
+                        </div>
+                        <h3 class="poem-title">The Fool</h3>
+                        <div class="poem-content">
+                            <p>Thou walkest a lonely path where the meager may wander,<br>
+                            Yet none dare lie beside thee.<br>
+                            "Fool," is the sound the world proclaims,<br>
+                            The name they cast upon thy voice.</p>
+                            
+                            <p>So let the earth scorch beneath the heavens,<br>
+                            Let the skies rain blood upon the meek.<br>
+                            Then shall the meager know thy worth.<br>
+                            Yet still thou shalt remain—<br>
+                            The Fool.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hobbies-note" data-aos="fade-up" data-aos-delay="400">
+                    <p>These poems reflect my journey as a data scientist and the balance I seek between 
+                    technical precision and creative expression. Feel free to reach out if you'd like to 
+                    discuss poetry, technology, or the intersection of both.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 Basabjeet Deb. Crafted with passion & data.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/Basabjeet-Deb" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/basabjeet-deb" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/preloader.js"></script>
+</body>
+</html>
