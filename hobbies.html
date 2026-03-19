@@ -68,7 +68,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 50px 40px;
+            padding: 20px;
             transition: var(--transition-base);
             position: relative;
             overflow: hidden;
@@ -83,8 +83,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
-            height: 85%;
+            width: 95%;
+            height: 92%;
             background-image: url('https://images.unsplash.com/photo-1509266272358-7701da638078?auto=format&fit=crop&q=80&w=1000');
             background-size: cover;
             background-position: center;
@@ -92,6 +92,22 @@
             z-index: 0;
             border-radius: 8px;
             pointer-events: none;
+        }
+
+        /* Different background for second poem */
+        .poem-card:nth-child(2)::after {
+            background-image: url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&q=80&w=1000');
+            opacity: 0.2;
+            width: 95%;
+            height: 92%;
+        }
+
+        /* Different background for third poem */
+        .poem-card:nth-child(3)::after {
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1000');
+            opacity: 0.18;
+            width: 95%;
+            height: 92%;
         }
 
         .poem-card::before {
@@ -121,9 +137,10 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             position: relative;
             z-index: 2;
+            padding: 15px 20px 0;
         }
 
         .poem-date {
@@ -136,10 +153,11 @@
         .poem-title {
             font-size: 2.2rem;
             color: var(--text-primary);
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             font-weight: 600;
             position: relative;
             z-index: 2;
+            padding: 0 20px;
         }
 
         .poem-content {
@@ -148,6 +166,7 @@
             font-size: 1.1rem;
             position: relative;
             z-index: 2;
+            padding: 0 20px 20px;
         }
 
         .poem-content p {
@@ -330,6 +349,58 @@
                             Then shall the meager know thy worth.<br>
                             Yet still thou shalt remain—<br>
                             The Fool.</p>
+                        </div>
+                    </div>
+
+                    <!-- Poem 2 -->
+                    <div class="poem-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="poem-header">
+                            <span class="poem-date">Original Poem</span>
+                        </div>
+                        <h3 class="poem-title">Unanswered Prayer</h3>
+                        <div class="poem-content">
+                            <p>I loved thee with a weight I could not bear,<br>
+                            So I carried it to God in silent tears.<br>
+                            And when the hour came, I placed it in thy hands—<br>
+                            All that my soul had long held within.</p>
+                            
+                            <p>If thou couldst look through mine eyes,<br>
+                            And see the sea that lives in me,<br>
+                            Thou might have known my worth.<br>
+                            Yet even that restless sea<br>
+                            Turns away from me.</p>
+                            
+                            <p>So it fell,<br>
+                            Not for its lightness—<br>
+                            But because it was never thine,<br>
+                            Nor ever meant to be.</p>
+                        </div>
+                    </div>
+
+                    <!-- Poem 3 -->
+                    <div class="poem-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="poem-header">
+                            <span class="poem-date">Original Poem</span>
+                        </div>
+                        <h3 class="poem-title">What Time Taught Me</h3>
+                        <div class="poem-content">
+                            <p>I was but a child,<br>
+                            Reaching for love and gentle joy—<br>
+                            Yet time, not unkind,<br>
+                            Did shape me from within,<br>
+                            Not by loss alone,<br>
+                            But by quiet change.</p>
+                            
+                            <p>My dreams grew softer with the days,<br>
+                            And expectations learned to rest—<br>
+                            Yet something in me<br>
+                            Stood still, unbroken.</p>
+                            
+                            <p>And so I walk my path ahead,<br>
+                            Not as I once was,<br>
+                            But as time hath made me.</p>
+                            
+                            <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.8;">Inspired by "A Thousand Years" (cover by John Michael Howell, JVKE & ZVC; originally by Christina Perri).</p>
                         </div>
                     </div>
                 </div>
