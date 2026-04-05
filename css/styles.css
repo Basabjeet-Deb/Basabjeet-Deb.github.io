@@ -918,6 +918,9 @@ section {
     overflow: hidden;
     border: 1px solid var(--border-color);
     transition: var(--transition-base);
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .project-card:hover {
